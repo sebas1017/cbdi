@@ -17,3 +17,5 @@ venv/
 *.toc
 .DS_Store
 .claude/
+applications_research.md
+sudoku_solver_optimization.md
