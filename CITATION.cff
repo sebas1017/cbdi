@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "CBDI: Column-Balanced Delta Invariant"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - given-names: Sebastian
+    family-names: Henao Erazo
+version: 0.1.0
+date-released: "2025-01-01"
+license: MIT
+repository-code: "https://github.com/sebas1017/cbdi"
+keywords:
+  - permutation codes
+  - rank modulation
+  - error detection
+  - flash memory
+  - Latin squares
+  - combinatorics

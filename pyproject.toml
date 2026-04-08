@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cbdi"
+version = "0.1.0"
+description = "Column-Balanced Delta Invariant: ultra-fast error detection for permutation matrices"
+readme = "README.md"
+license = "MIT"
+authors = [{name = "Sebastian Henao Erazo"}]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+keywords = [
+    "permutation-codes", "rank-modulation", "flash-memory",
+    "error-detection", "coding-theory", "latin-squares",
+    "combinatorics", "information-theory",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Repository = "https://github.com/sebas1017/cbdi"
+
+[tool.setuptools.packages.find]
+include = ["cbdi*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

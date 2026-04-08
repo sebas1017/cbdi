@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{mathrsfs}
+
+\geometry{margin=1in}
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\setstretch{1.2}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Column-Balanced Delta Invariant}
+\lhead{Sebastian Henao Erazo}
+\rfoot{\thepage}
+
+\title{\textbf{A Column-Balanced Delta Invariant in Row-Permutation Matrices}}
+\author{Sebastian Henao Erazo}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We investigate an additive invariant in $n\times n$ matrices whose rows are permutations of a fixed set of $n$ distinct numbers (not necessarily $\{1,\dots,n\}$ or in arithmetic progression). We prove that the component-wise sum of consecutive differences across all rows equals the zero vector \emph{if and only if} all columns have the same sum. While Brualdi and Dahl~(2020) introduced the discrete derivative of a single permutation, our work extends this concept to the multi-row setting by aggregating delta vectors across all rows and establishing the equivalence with column-balance. This generalizes previous observations restricted to consecutive integers to arbitrary finite sets of distinct reals or elements of any abelian group. We provide examples including non-progressive sets such as $\{1,6,24\}$ and irrational sets such as $\{\pi,e,\sqrt{2}\}$, discuss counterexamples when the column-balance fails, and develop concrete applications in error detection, combinatorial classification, and data compression.
+\end{abstract}
+
+\section{Introduction}
+Row-permutation matrices appear in group theory, combinatorics, and design theory. While earlier work focused on permutations of $\{1,\dots,n\}$, here we show that the invariant holds for any set of $n$ distinct reals (or complex numbers) if and only if a simple \emph{column-balance condition} is met.
+
+\subsection*{Related work}
+Brualdi and Dahl~\cite{brualdi2020} introduced the \emph{discrete derivative} of a single permutation $\pi$ as the vector $D(\pi)=(\pi_2-\pi_1, \pi_3-\pi_2, \dots, \pi_n-\pi_{n-1})$, which is mathematically equivalent to our delta vector for an individual row. They characterize which integer vectors arise as discrete derivatives, study extremal properties (local and global variation), and establish connections to Costas arrays. However, their analysis remains at the level of a \emph{single} permutation: they do not consider the sum of derivative vectors across multiple rows of a matrix, nor do they relate aggregated derivatives to column-sum properties. Our work extends their framework to the multi-row setting, proving a clean equivalence between the total delta vector vanishing and the column-balance condition, and generalizes the result beyond $\{1,\dots,n\}$ to arbitrary finite sets of distinct elements in any abelian group.
+
+\subsection*{Contributions}
+\begin{enumerate}
+\item We formulate the \textbf{total delta vector} as the sum of row-wise consecutive-difference vectors across all rows of a matrix, extending the single-permutation discrete derivative of~\cite{brualdi2020} to the matrix level.
+\item We prove a \textbf{necessary and sufficient condition}: the total delta vector is zero if and only if all columns have the same sum (Theorem~1).
+\item We demonstrate that this equivalence holds for \textbf{arbitrary finite sets} of distinct reals (or elements of any abelian group), not just $\{1,\dots,n\}$.
+\item We develop \textbf{concrete applications} in error detection, combinatorial classification by delta signature, and data compression.
+\end{enumerate}
+
+\section{Definition of the Delta Invariant}
+Let $M \in \mathbb{R}^{n\times n}$ and define for row $M_i = [a_1, a_2, \dots, a_n]$ the \textbf{delta vector}:
+\[
+\Delta_i = [a_1-a_2,\ a_2-a_3,\ \dots,\ a_{n-1}-a_n] \in \mathbb{R}^{n-1}.
+\]
+The total delta vector is:
+\[
+\Delta_{\mathrm{total}} = \sum_{i=1}^n \Delta_i.
+\]
+
+\section{Main Theorem}
+\textbf{Theorem 1 (Column-Balanced Delta Invariant).}  
+\emph{For any $n\times n$ matrix $M$,}
+\[
+\Delta_{\mathrm{total}} = \mathbf{0} \quad\Longleftrightarrow\quad \sum_{i=1}^n M_{i,j} = \sum_{i=1}^n M_{i,j+1} \ \text{ for all } 1\le j < n.
+\]
+That is, the invariant holds if and only if all columns have the same sum.
+
+\subsection*{Proof}
+Component-wise:
+\[
+\Delta_{\mathrm{total}}[j] = \sum_{i=1}^n (M_{i,j} - M_{i,j+1}) = \sum_{i=1}^n M_{i,j} - \sum_{i=1}^n M_{i,j+1}.
+\]
+Thus $\Delta_{\mathrm{total}}[j]=0$ for all $j$ iff $\sum_i M_{i,j} = \sum_i M_{i,j+1}$ for all $j$. This exactly states that all columns have the same sum. \qed
+
+\section{Generalization}
+A key distinction from prior work on Latin squares is that our result does not depend on the algebraic structure of the underlying set. The theorem holds for:
+\begin{itemize}
+\item Any finite set of $n$ distinct reals (or elements in any abelian group).
+\item Sets not in arithmetic progression (e.g., $\{1,6,24\}$).
+\item Permutations drawn from transcendental or irrational values (e.g., $\{\pi, e, \sqrt{2},\dots\}$).
+\end{itemize}
+The $\{1,\dots,n\}$ case is a special instance where column-balance occurs automatically in Latin squares (since each column is a permutation of $\{1,\dots,n\}$, every column sum equals $n(n+1)/2$). The generalization to arbitrary sets is significant because it separates the column-balance condition from the combinatorial structure of Latin squares: for non-standard sets, a row-permutation matrix need not be a Latin square, and column-balance becomes a non-trivial property that the delta invariant precisely characterizes.
+
+Note that the proof of Theorem~1 uses only the linearity of summation and does not invoke any property of the row entries. Consequently, the equivalence holds for \emph{any} $n\times n$ matrix, whether or not its rows are permutations. The permutation hypothesis becomes relevant when one wants to guarantee that column-balance holds (as in Latin squares) or to exploit the fixed row-sum structure in applications.
+
+\section{Examples}
+
+\subsection*{Example 1: Progressive set (Latin square)}
+\[
+M = \begin{bmatrix}
+1 & 3 & 2 & 4 \\
+4 & 2 & 1 & 3 \\
+3 & 1 & 4 & 2 \\
+2 & 4 & 3 & 1
+\end{bmatrix}
+\]
+Column sums: $(10,10,10,10)$ → invariant holds.
+
+\subsection*{Example 2: Non-progressive set}
+Set $S=\{1,6,24\}$:
+\[
+M = \begin{bmatrix}
+1 & 6 & 24 \\
+6 & 24 & 1 \\
+24 & 1 & 6
+\end{bmatrix}
+\]
+Column sums: $(31,31,31)$ → invariant holds.
+
+\subsection*{Example 3: Non-progressive irrational set}
+$S=\{\pi, e, \sqrt{2}\}$:
+\[
+M = \begin{bmatrix}
+\pi & e & \sqrt{2} \\
+e & \sqrt{2} & \pi \\
+\sqrt{2} & \pi & e
+\end{bmatrix}
+\]
+Column sums equal $\pi+e+\sqrt{2}$ → invariant holds.
+
+\subsection*{Example 4: Fails the condition}
+\[
+M = \begin{bmatrix}
+2 & 3 & 1 \\
+3 & 2 & 1 \\
+2 & 1 & 3
+\end{bmatrix}
+\]
+Column sums: $(7,6,5)$ → invariant fails.
+
+\section{Empirical Validation}
+We verified:
+\begin{itemize}
+\item All $4\times 4$ Latin squares (576 cases) over $\{1,2,3,4\}$.
+\item Random column-balanced matrices for $n=3,5,7$ with non-progressive sets.
+\end{itemize}
+In all column-balanced cases, $\Delta_{\mathrm{total}}=\mathbf{0}$; in unbalanced cases, the invariant failed exactly as predicted.
+
+\section{Applications}
+
+\subsection{Error Detection}
+The delta invariant provides a lightweight checksum for permutation-based grids. Given a row-permutation matrix $M$ that is known to be column-balanced, any corruption of an entry will generically break the column-balance and yield $\Delta_{\mathrm{total}} \neq \mathbf{0}$.
+
+\textbf{Example.} Consider the Latin square from Example~1. Suppose entry $M_{2,3}=1$ is corrupted to $M_{2,3}=5$. Then column~3 sum becomes $2+5+4+3=14$ while the other columns remain at $10$. Computing $\Delta_{\mathrm{total}}$ yields:
+\[
+\Delta_{\mathrm{total}} = [0, -4, 4],
+\]
+which is nonzero, signaling an error. Moreover, the position of the nonzero components localizes the corruption to columns~2--4.
+
+This approach complements existing Latin-square-based error-correcting codes (such as OLS codes~\cite{reviriego2013}), offering a row-difference-based check that does not require the orthogonality structure used by classical methods.
+
+\subsection{Combinatorial Classification by Delta Signature}
+For a fixed set $S$ of $n$ elements, one can classify all $n\times n$ row-permutation matrices by their \textbf{delta signature} $\Delta_{\mathrm{total}} \in \mathbb{R}^{n-1}$. Matrices sharing the same delta signature have identical column-sum difference profiles.
+
+\textbf{Example.} For $S=\{1,2,3\}$, there are $3!=6$ permutations and $(3!)^3=216$ possible $3\times 3$ row-permutation matrices. These partition into equivalence classes by $\Delta_{\mathrm{total}}$:
+\begin{itemize}
+\item $\Delta_{\mathrm{total}}=(0,0)$: the 12 Latin squares (column-balanced).
+\item $\Delta_{\mathrm{total}}=(1,-1)$: matrices where column~1 exceeds column~2 by 1 and column~2 exceeds column~3 by 1.
+\item Other signatures: $(2,-2)$, $(-1,1)$, $(-2,2)$, $(1,1)$, etc.
+\end{itemize}
+This classification refines the study of row-permutation matrices beyond Latin squares and connects to Brualdi and Dahl's work~\cite{brualdi2020} on characterizing feasible difference vectors, now at the aggregate level.
+
+\subsection{Data Compression}
+When column-balance is known to hold, the redundancy encoded by $\Delta_{\mathrm{total}}=\mathbf{0}$ can be exploited for compression. Given an $n\times n$ column-balanced row-permutation matrix over a known set $S$:
+\begin{enumerate}
+\item The last column is determined by the first $n-1$ columns and the known column sum $\sigma = \sum_{s\in S} s$.
+\item Within each row, if $n-1$ entries are known, the remaining entry is determined (since each row is a permutation of $S$).
+\end{enumerate}
+Therefore, instead of storing $n^2$ entries, one can store $n(n-1)$ entries (the first $n-1$ columns), saving a factor of $1/n$ in storage. For large permutation arrays (e.g., in tournament scheduling or experimental design), this reduction is significant.
+
+\textbf{Example.} For the $3\times 3$ matrix in Example~2 with $S=\{1,6,24\}$ and $\sigma=31$, storing only the first two columns $[1,6;\ 6,24;\ 24,1]$ suffices: each row's third entry is $31$ minus the sum of the stored entries, and column-balance provides a consistency check on reconstruction.
+
+\section{Conclusion}
+The column-balanced delta invariant establishes a clean equivalence between the vanishing of the total delta vector and the column-balance condition in any $n\times n$ matrix. While the individual delta vector (discrete derivative) of a single permutation was introduced by Brualdi and Dahl~\cite{brualdi2020}, our contribution extends this to the multi-row aggregate level, proves the if-and-only-if characterization, and demonstrates that the result holds for arbitrary finite sets of distinct elements---not just $\{1,\dots,n\}$.
+
+The Latin square is a symmetric special case where column-balance is guaranteed by construction. The broader generalization to non-progressive and non-integer sets opens new lines of inquiry in combinatorics, coding theory, and puzzle design. The concrete applications in error detection, delta-signature classification, and data compression illustrate the practical utility of the invariant beyond its theoretical elegance.
+
+\begin{thebibliography}{9}
+
+\bibitem{brualdi2020}
+Brualdi, R.A., Dahl, G. (2020). Permutation matrices, their discrete derivatives and extremal properties. \emph{Vietnam Journal of Mathematics}, 48, 719--740. arXiv:1908.03739.
+
+\bibitem{denes1974}
+Denes, J., Keedwell, A.D. (1974). \emph{Latin Squares and Their Applications}. Academic Press.
+
+\bibitem{laywine1998}
+Laywine, C.F., Mullen, G.L. (1998). \emph{Discrete Mathematics Using Latin Squares}. Wiley-Interscience.
+
+\bibitem{reviriego2013}
+Reviriego, P., Pontarelli, S., Maestro, J.A. (2013). Concurrent error detection for orthogonal Latin squares encoders and syndrome computation. \emph{IEEE Transactions on VLSI Systems}, 23(11), 2550--2554.
+
+\bibitem{oeis}
+OEIS Foundation. Sequence A107739: Number of completed Sudoku grids of size $n^2 \times n^2$. \emph{The On-Line Encyclopedia of Integer Sequences}.
+
+\end{thebibliography}
+
+\end{document}
