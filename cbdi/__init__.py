@@ -1,22 +1,12 @@
 """
 CBDI — Column-Balanced Delta Invariant
-=======================================
 
-A Python library for error detection in permutation matrices
-using the Column-Balanced Delta Invariant.
+Error detection for permutation matrices via column-sum invariance.
 
-Usage:
     >>> import cbdi
-    >>> matrix = cbdi.latin_square(4)
-    >>> cbdi.check(matrix)
+    >>> M = cbdi.latin_square(4)
+    >>> cbdi.check(M)
     (True, array([0, 0, 0]))
-
-    >>> corrupted = cbdi.inject_transposition(matrix, row=1, col=2)
-    >>> ok, syndrome = cbdi.check(corrupted)
-    >>> ok
-    False
-    >>> cbdi.localize(syndrome)
-    {'error_detected': True, 'columns': (2, 3), 'magnitude': 1, 'pattern': 'laplacian'}
 """
 
 __version__ = "0.1.0"
